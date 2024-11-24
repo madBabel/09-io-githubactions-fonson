@@ -39,13 +39,14 @@ jobs:
       - name: Build
         id: build
         run: |
-          echo "status=${{ inputs.build-status }}" >> "$GITHUB_OUTPUT"
-          echo "tag=${{ inputs.tag }}" >> "$GITHUB_OUTPUT"
+          echo "status=${{ inputs.build-status }}" >> $GITHUB_OUTPUT
+          echo "tag=${{ inputs.tag }}" >> $GITHUB_OUTPUT
 
   deploy:
     needs: build
     runs-on: ubuntu-latest
     if: ${{inputs.dry-run == false && needs.build.outputs.status == 'success' && needs.build.result == 'success'}}
+    environment: ${{ inputs.target }}
     steps:          
       - name: Deploy
         run: |
