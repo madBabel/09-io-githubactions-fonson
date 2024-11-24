@@ -33,7 +33,7 @@ jobs:
       tag: ${{ steps.build.outputs.tag }}
       status: ${{ steps.build.outputs.status }}
     steps:          
-      - name: "Print {{ $GITHUB_OUTPUT }} path"
+      - name: "Print GITHUB_OUTPUT path"
         run: |
           echo "{{ $GITHUB_OUTPUT }}" 
       - name: Build
@@ -49,7 +49,7 @@ jobs:
     steps:          
       - name: Deploy
         run: |
-          echo "Deploying to : ${{ inputs.target }}" 
+          echo "Deploying to : ${{ inputs.target }} using tag ${{ needs.build.outputs.tag }}" 
  
     #  - El trabajo `build` se completó exitosamente.
   
