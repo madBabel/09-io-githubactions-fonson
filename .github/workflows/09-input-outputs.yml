@@ -39,18 +39,18 @@ jobs:
       - name: Build
         id: build
         run: |
-          echo "status=${{ inputs.build-status }}" >> $GITHUB_OUTPUT
-          echo "tag=${{ inputs.tag }}" >> $GITHUB_OUTPUT
+          echo "status=${{ github.event.inputs.build-status }}" >> $GITHUB_OUTPUT
+          echo "tag=${{ github.event.inputs.tag }}" >> $GITHUB_OUTPUT
 
   deploy:
     needs: build
     runs-on: ubuntu-latest
     if: ${{inputs.dry-run == false && needs.build.outputs.status == 'success' && needs.build.result == 'success'}}
-    environment: ${{ inputs.target }}
+    environment: ${{ github.event.inputs.target }}
     steps:          
       - name: Deploy
         run: |
-          echo "Deploying to : ${{ inputs.target }} using tag ${{ needs.build.outputs.tag }}" 
+          echo "Deploying to : ${{ github.event.inputs.target }} using tag ${{ needs.build.outputs.tag }}" 
  
     #  - El trabajo `build` se completó exitosamente.
   
