@@ -1,7 +1,5 @@
 name: Inputs and Outputs
-run-name: "Ejecucion con var mivar con valor =  ${{vars.MI_VAR}}"
 on:
-  push:
   workflow_dispatch:
     inputs:
       dry-run:
@@ -42,6 +40,7 @@ jobs:
         run: |
           echo "status=${{ inputs.build-status }}" >> $GITHUB_OUTPUT
           echo "tag=${{ inputs.tag }}" >> $GITHUB_OUTPUT
+          echo "Mi var = ${{vars.MI_VAR}}"
 
   deploy:
     needs: build
@@ -52,6 +51,7 @@ jobs:
       - name: Deploy
         run: |
           echo "Deploying to : ${{ inputs.target }} using tag ${{ needs.build.outputs.tag }}" 
+           echo "Mi var = ${{vars.MI_VAR}}"
  
     #  - El trabajo `build` se completó exitosamente.
   
